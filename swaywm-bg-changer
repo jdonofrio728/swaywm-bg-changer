@@ -79,9 +79,9 @@ def get_bg(bg_dir):
 def is_image(bg):
   return False
 
-def swaywm_bg_changer():
+def swaywm_bg_changer(bg_dir):
   for output in get_outputs():
-    bg = get_bg("/home/donofrj/Pictures/wallpaper")
+    bg = get_bg(bg_dir)
     data = set_background(output, bg)
     status = data[0]['success']
     if status:
@@ -89,10 +89,10 @@ def swaywm_bg_changer():
     else:
       print("Failed to set %s to %s" % (output, bg))
 
-def daemon_mode(timeout):
+def daemon_mode(timeout, bg_dir):
   with daemon.DaemonContext():
     while True:
-      swaywm_bg_changer()
+      swaywm_bg_changer(bg_dir)
       time.sleep(timeout)
 
 
@@ -104,10 +104,11 @@ def main():
   args = parser.parse_args()
   d = args.daemon
   t = args.timeout * 60
+  bg_dir = args.bg_dir
   if d:
-    daemon_mode(t)
+    daemon_mode(t, bg_dir)
   else:
-    swaywm_bg_changer()
+    swaywm_bg_changer(bg_dir)
 
 if __name__ == "__main__":
   main()
