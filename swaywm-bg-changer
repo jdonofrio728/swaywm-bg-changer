@@ -2,8 +2,8 @@
 
 """
 sway-bg-changer
-This program is designed to take in a folder of images and rotate the
-
+This program is designed to take in a folder of images and rotate the background image to
+a random picture in a provided folder.
 """
 
 import argparse
